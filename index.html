@@ -1,16 +1,53 @@
+<!--Make sure to subscribe and comment down below what you think about this video and share with your friends if you enjoyed this video and dont forget to smash that like button -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraStrijd</title>
-        <link rel="stylesheet" href="style.css">
+    <title>Aura Strijd</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .image-container {
+            margin: 0 20px;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        .aura-score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-        <button class="buttons">hoger</button> 
-        <button class="buttons">lager</button>
-        
-    <script type="text/javascript" src="index.js"></script>
+
+    <h1>Aura Strijd</h1>
+    <div class="aura-score">Aura: <span id="aura">0</span></div>
+    <div class="game-container">
+        <div class="image-container">
+            <img id="left-image" src="" alt="Left Image" width="200" height="200">
+        </div>
+        <div class="image-container">
+            <img id="right-image" src="" alt="Right Image" width="200" height="200">
+        </div>
+    </div>
+    <div class="buttons-container">
+        <button id="higher-button">Higher</button>
+        <button id="lower-button">Lower</button>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>
 
