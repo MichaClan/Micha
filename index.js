@@ -1,57 +1,101 @@
 let aura = 0;
 const targetAura = 1000;
-const imageSources = [   // Hier onder komen foto's
+
+const imageSources = [
     "images/Batman.webp",
     "images/Jonkler.webp",
     "images/thomas.webp",
     "images/gojo.webp",
-    "images/name-another-anime-character-with-more-aura-than-them-v0-camyvkciog.webp", 
     "images/hawk tuah.webp",
-    "image3.jpg",
-    "image3.jpg",
-    ]; 
+    "images/aizen.webp",
+    "images/guts.webp",
+    "images/sukuna.webp",
+    "images/goku.webp",      
+    "images/yujiro.webp",
+    "images/drive.webp",
+    "images/dio.webp",
+    "images/aang.webp",
+    "images/Darth.webp",
+    "images/Madara.webp",
+    "images/kratos.png",
+    "images/saitama.webp",
+    "images/vegeta.webp"    // Voor nu:  Aura ranking: Batman > Kratos > Madara >  > Thomas > Goku>> Vegeta > Saitama > Dio> Sukuna > Gojo > Aang >> Hawk Tuah
+    // add shanks and luffy
+];
 
-    const backgroundImages = {    //achtergrond die verandert
-        calm: "images/calmAura.png",     // 0-250 aura
-        moderate: "images/wukongAura.jpg", // 251-500 aura
-        intense: "images/berserkAura.jpg",   // 501-700 aura
-        extreme: "images/darkAura.jpg",   // 701-999 aura
-        win: "images/cosmicaura.jpg"        // 1000 aura
-    };
+const backgroundImages = {
+    calm: "wallpaper/calmAura.png",         // 0-250 aura
+    moderate: "wallpaper/wukongAura.jpg",   // 251-500 aura
+    intense: "wallpaper/berserkAura.jpg",   // 501-700 aura
+    extreme: "wallpaper/darkAura.jpg",      // 701-999 aura
+    win: "wallpaper/cosmicaura.jpg"         // 1000 aura  // werkt nog nie
+};
 
+// Function to get a random aura value between 1 and 100
 function getRandomAura() {
-    return Math.floor(Math.random() * 100) + 1; // Random aura between 1 and 100
+    return Math.floor(Math.random() * 100) + 1;
 }
 
+// Function to load two random images that are not the same
 function loadRandomImages() {
+    let leftIndex = Math.floor(Math.random() * imageSources.length);
+    let rightIndex;
+
+    do {
+        rightIndex = Math.floor(Math.random() * imageSources.length);
+    } while (rightIndex === leftIndex); // Ensure the right image is different
+
+    // Set the images for left and right
+    document.getElementById("left-image").src = imageSources[leftIndex];
+    document.getElementById("right-image").src = imageSources[rightIndex];
+
+    // Return the aura values for comparison
     const leftAura = getRandomAura();
     const rightAura = getRandomAura();
-
-    document.getElementById("left-image").src = imageSources[Math.floor(Math.random() * imageSources.length)];
-    document.getElementById("right-image").src = imageSources[Math.floor(Math.random() * imageSources.length)];
 
     return { leftAura, rightAura };
 }
 
+// Function to update the aura score and change the background based on aura
 function updateAura(change) {
     aura += change;
     document.getElementById("aura").innerText = aura;
+
+    updateBackground(); // Call this to update background based on aura
 
     if (aura >= targetAura) {
         alert("Congratulations! You won with 1000 aura!");
         resetGame();
     } else if (aura < 0) {
-        alert("You lost! Try again.");
+        alert("You lost! You are going to the Aura Prison! ");
         resetGame();
     }
 }
 
+// Function to update the background based on aura value
+function updateBackground() {
+    if (aura >= 0 && aura <= 250) {
+        document.body.style.backgroundImage = `url(${backgroundImages.calm})`;
+    } else if (aura >= 251 && aura <= 500) {
+        document.body.style.backgroundImage = `url(${backgroundImages.moderate})`;
+    } else if (aura >= 501 && aura <= 700) {
+        document.body.style.backgroundImage = `url(${backgroundImages.intense})`;
+    } else if (aura >= 701 && aura <= 999) {
+        document.body.style.backgroundImage = `url(${backgroundImages.extreme})`;
+    } else if (aura >= 1000) {
+        document.body.style.backgroundImage = `url(${backgroundImages.win})`;
+    }
+}
+
+// Reset the game to the initial state
 function resetGame() {
     aura = 0;
     document.getElementById("aura").innerText = aura;
-    loadRandomImages();
+    updateBackground();  // Reset background to calm
+    loadRandomImages();   // Load new random images
 }
 
+// Event listener for "Higher" button
 document.getElementById("higher-button").addEventListener("click", function() {
     const { leftAura, rightAura } = loadRandomImages();
     if (leftAura > rightAura) {
@@ -61,6 +105,7 @@ document.getElementById("higher-button").addEventListener("click", function() {
     }
 });
 
+// Event listener for "Lower" button
 document.getElementById("lower-button").addEventListener("click", function() {
     const { leftAura, rightAura } = loadRandomImages();
     if (rightAura > leftAura) {
@@ -70,6 +115,6 @@ document.getElementById("lower-button").addEventListener("click", function() {
     }
 });
 
-// Initialize the first random images
+// Initialize the first random images and background
 loadRandomImages();
-updateBackground()
+updateBackground(); // Make sure the background starts correctly
