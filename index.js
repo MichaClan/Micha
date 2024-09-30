@@ -36,16 +36,16 @@ function getRandomAura() {
     return Math.floor(Math.random() * 100) + 1;
 }
 
-// Function to load two random images that are not the same
+// Functie dat 2 random foto's genereerd
 function loadRandomImages() {
     let leftIndex = Math.floor(Math.random() * imageSources.length);
     let rightIndex;
 
     do {
         rightIndex = Math.floor(Math.random() * imageSources.length);
-    } while (rightIndex === leftIndex); // Ensure the right image is different
+    } while (rightIndex === leftIndex); //Maakt zeker dat de rechter foto anders is
 
-    // Set the images for left and right
+    // Zet de foto's
     document.getElementById("left-image").src = imageSources[leftIndex];
     document.getElementById("right-image").src = imageSources[rightIndex];
 
@@ -87,12 +87,12 @@ function updateBackground() {
     }
 }
 
-// Reset the game to the initial state
+// Reset de game in origneel staat
 function resetGame() {
     aura = 0;
     document.getElementById("aura").innerText = aura;
-    updateBackground();  // Reset background to calm
-    loadRandomImages();   // Load new random images
+    updateBackground();  // Reset wallpaper naar calm
+    loadRandomImages();   // Load nieuwe random images
 }
 
 // Event listener for "Higher" button
